@@ -119,10 +119,13 @@ def make_repeater(f, n):
     390625
     """
     "*** YOUR CODE HERE ***"
-    def rep1(num):
-        to = 1
-        for i in range(n):
-            to = to * f(num)
-    return rep1
+    if n == 1:
+        return f
+    else :
+        def re(x):
+             return f(make_repeater(f,n-1)(x))
+        return re
+        # return lambda x: f(make_repeater(f,n-1)(x)) "another way to approch"
 
-print(make_repeater(triple, 5)(1))  #还是有bug
+
+print(make_repeater(triple, 5)(1))  
