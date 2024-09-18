@@ -28,7 +28,14 @@ def num_eights(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if n % 10 == 8:
+        return 1 + num_eights(n // 10)
+    elif n < 10:
+        return 0
+    else :
+        return num_eights(n // 10)
 
+print(num_eights(811848))
 
 def digit_distance(n):
     """Determines the digit distance of n.
@@ -50,7 +57,12 @@ def digit_distance(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if n < 10 :
+        return 0
+    else :
+        return abs(n % 10 - (n // 10) % 10) +digit_distance(n // 10)
 
+print(digit_distance(321))
 
 def interleaved_sum(n, odd_func, even_func):
     """Compute the sum odd_func(1) + even_func(2) + odd_func(3) + ..., up
@@ -72,7 +84,16 @@ def interleaved_sum(n, odd_func, even_func):
     True
     """
     "*** YOUR CODE HERE ***"
-
+    if n == 0:
+        return 0
+    elif n % 2 == 1:
+        return odd_func(n) + interleaved_sum(n - 1, odd_func, even_func)
+    elif n % 2 == 0:
+        return even_func(n) + interleaved_sum(n - 1, odd_func, even_func)
+identity = lambda x: x
+square = lambda x: x * x
+triple = lambda x: x * 3
+print(interleaved_sum(5, square, identity))
 
 def next_larger_coin(coin):
     """Returns the next larger coin in order.
