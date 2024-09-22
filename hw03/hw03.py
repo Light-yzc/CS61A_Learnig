@@ -147,6 +147,20 @@ def count_coins(total):
     True
     """
     "*** YOUR CODE HERE ***"
+    return count(total,1)
+
+def count(total,coin):
+    if total == 0:
+        return 1
+    elif total < 0:
+        return 0
+    if coin == None:
+        return 0
+    without_coin = count(total,next_larger_coin(coin))
+    with_coin = count(total-coin,coin)
+    return without_coin + with_coin
+    
+print(count_coins(10))
 
 
 def print_move(origin, destination):
@@ -182,7 +196,16 @@ def move_stack(n, start, end):
     """
     assert 1 <= start <= 3 and 1 <= end <= 3 and start != end, "Bad start/end"
     "*** YOUR CODE HERE ***"
+    if n == 1:
+        print_move(start,end)
+        return
+    move_to_mid = 6 - start - end
+    move_stack(n-1,start,move_to_mid)
+    print_move(start,end)
+    move_stack(n-1,move_to_mid,end)
+    """真的难，抄的"""
 
+move_stack(3,1,3)
 
 from operator import sub, mul
 
@@ -197,5 +220,8 @@ def make_anonymous_factorial():
     ...     ['Assign', 'AnnAssign', 'AugAssign', 'NamedExpr', 'FunctionDef', 'Recursion'])
     True
     """
-    return 'YOUR_EXPRESSION_HERE'
+    from functools import reduce
+    return lambda x: reduce(mul,range(1,x+1))
+    
+print(make_anonymous_factorial()(5))
 
