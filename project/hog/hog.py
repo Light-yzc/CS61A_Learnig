@@ -234,6 +234,13 @@ def is_always_roll(strategy, goal=GOAL):
     """
     # BEGIN PROBLEM 7
     "*** YOUR CODE HERE ***"
+    roll = strategy(0,0)
+    for i in range(goal):
+        for j in range(goal):
+            if strategy(i,j) != roll:
+                return False
+    return True
+
     # END PROBLEM 7
 
 
@@ -250,6 +257,12 @@ def make_averaged(original_function, times_called=1000):
     """
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+    def ave(*args):
+        sum = 0
+        for i in range(times_called):
+            sum += original_function(*args)
+        return sum / times_called
+    return ave
     # END PROBLEM 8
 
 
@@ -263,8 +276,20 @@ def max_scoring_num_rolls(dice=six_sided, times_called=1000):
     """
     # BEGIN PROBLEM 9
     "*** YOUR CODE HERE ***"
-    # END PROBLEM 9
+    max = 0
+    lct = 0
+    for i in range(1,11):
+        ave_num = make_averaged(roll_dice,times_called)(i,dice)
+        if ave_num > max:
+            max = ave_num
+            lct = i
+    return lct
 
+
+
+    # END PROBLEM 9
+dice = make_test_dice(*([2] * 55 + [1, 2] * 500)) # test that you are not rolling the dice more than necessary
+max_scoring_num_rolls(dice, times_called=1) # dice is 2 for the first 55 rolls, then is 1 followed by 2 for 1000 rolls
 
 def winner(strategy0, strategy1):
     """Return 0 if strategy0 wins against strategy1, and 1 otherwise."""
@@ -307,7 +332,10 @@ def boar_strategy(score, opponent_score, threshold=11, num_rolls=6):
     points, and returns NUM_ROLLS otherwise. Ignore score and Sus Fuss.
     """
     # BEGIN PROBLEM 10
-    return num_rolls  # Remove this line once implemented.
+    if boar_brawl(score,opponent_score) >= threshold:
+        return 0 
+    else:
+        return num_rolls  # Remove this line once implemented.
     # END PROBLEM 10
 
 
