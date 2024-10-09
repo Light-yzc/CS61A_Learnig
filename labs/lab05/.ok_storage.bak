@@ -2,3 +2,4 @@
 'group_by-correct', (512, 66)
 'count_occurrences-correct', (1024, 66)
 'partial_reverse-correct', (1536, 66)
+'repeated-correct', (2048, 66)

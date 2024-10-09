@@ -112,6 +112,16 @@ def repeated(t, k):
     """
     assert k > 1
     "*** YOUR CODE HERE ***"
+    count = 0
+    last_value = None
+    for current in t:
+        if current != last_value:
+            count = 1
+            last_value = current
+        else:
+            count += 1
+        if count == k:
+            return current
 
 def sprout_leaves(t, leaves):
     """Sprout new leaves containing the labels in leaves at each leaf of
@@ -147,7 +157,20 @@ def sprout_leaves(t, leaves):
           2
     """
     "*** YOUR CODE HERE ***"
-    return tree(t,tree(leaves))
+    # if is_leaf(t):
+    #     leaves1 = [tree(t) for t in leaves]
+    #     return tree(label(t),leaves1)
+    # else :
+    #     next_branches = [sprout_leaves(b,leaves) for b in branches(t)]
+    #     return tree(label(t), next_branches)
+    if is_leaf(t):
+        # If this is a leaf, create new branches with leaves
+        new_leaves = [tree(leaf) for leaf in leaves]
+        return tree(label(t), new_leaves)
+    else:
+        # If it's not a leaf, recursively sprout leaves in each branch
+        new_branches = [sprout_leaves(b, leaves) for b in branches(t)]
+        return tree(label(t), new_branches)
 
 
 
